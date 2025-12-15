@@ -1,2 +1,2 @@
-# chem-eng-calculator
-A chemical engineering calculator built in Racket.
+# chem-eng-toolkit
+A chemical engineering toolkit built in Racket.
