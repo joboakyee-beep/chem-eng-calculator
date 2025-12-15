@@ -1,5 +1,4 @@
-# chem-eng-toolkit
-A chemical engineering toolkit built in Racket.
+
 # Green Chemical Process Modeling Toolkit
 
 **Functional Programming | Engineering Systems | Sustainability**
