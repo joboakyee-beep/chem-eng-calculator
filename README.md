@@ -1,29 +1,42 @@
+# Green Chemical & Industrial Process Modeling Toolkit (Racket)
 
-# Green Chemical Process Modeling Toolkit
+A **modular Racket calculator** designed for **industrial engineering and chemical process modeling**, emphasizing **process efficiency, material balance, and sustainability metrics**. This project combines programming, math modeling, and engineering computations into a single toolkit suitable for **educational purposes, portfolio showcasing, and real-world process analysis**.
 
-**Functional Programming | Engineering Systems | Sustainability**
+## Features
 
----
+### 1. Unit Conversion Module
+- Converts **length, volume, and mass** (e.g., nm ↔ Å, mL ↔ L, g ↔ kg).
+- Ensures consistent units for all calculations.
 
-## Project Overview
-This project is a modular calculator built in Racket designed to assist engineers in analyzing process efficiency, material flows, and sustainability metrics. Originally inspired by chemical engineering calculations, it has been expanded to address industrial engineering challenges, including batch production analysis, mass balance, and environmental impact assessment.
+### 2. Batch Statistics Module
+- Summarizes measurements for **quality control**.
+- Calculates **min, max, mean, range, standard deviation, and coefficient of variation**.
+- Outputs are **rounded for readability**.
 
-The calculator allows users to convert units, analyze production batches, calculate material efficiency, and estimate sustainability metrics, providing insights that are critical for process optimization, resource management, and sustainable operations.
+### 3. Mass Balance Module
+- Tracks material flows within production systems.
+- Functions include:
+- Output calculation from input and waste percentage
+- Waste calculation from input and output
+- Waste percentage computation
+- Supports **batch-level efficiency analysis**.
 
-It demonstrates practical applications of industrial engineering concepts such as throughput optimization, quality control, waste reduction, and carbon footprint estimation.
----
+### 4. Sustainability Metrics Module
+- Calculates **carbon footprint** based on material mass and emission factors.
+- Provides **quantitative insight into environmental impact**.
 
-## Example Usage
+### 5. Material Efficiency & Process Module
+- Calculates **material balance, percent yield, material efficiency, and process run metrics**.
+- Functions include:
+- **Material Balance:** determines product and waste from feed mass and loss fraction
+- **Percent Yield:** measures efficiency relative to ideal output
+- **Material Efficiency:** fraction of feed converted to product
+- **Run Process:** simulates a process and returns product, waste, and efficiency
+- Integrates with other modules for a **comprehensive view of process performance and sustainability**.
 
-```racket
-; Calculate unit conversions
-(converts 15 "nm" "A") ; => 150
+## Installation
+Requires [Racket](https://racket-lang.org/) to run.
 
-; Average of experimental trials
-(average '(98 100 102)) ; => 100
-
-; Material balance for a process
-(material-balance 100 0.1) ; => '(90 10)
-
-; Run full process simulation
-(run-process 100 0.1) ; => '(90 10 0.9)
+1. Clone the repository:
+```bash
+git clone https://github.com/joboakyee-beep/gut.git
