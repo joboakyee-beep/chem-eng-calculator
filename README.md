@@ -6,37 +6,11 @@
 ---
 
 ## Project Overview
+This project is a modular calculator built in Racket designed to assist engineers in analyzing process efficiency, material flows, and sustainability metrics. Originally inspired by chemical engineering calculations, it has been expanded to address industrial engineering challenges, including batch production analysis, mass balance, and environmental impact assessment.
 
-The Green Chemical Process Modeling Toolkit is a Racket-based project designed to model simplified chemical processes using functional programming principles.  
-Originally started as a generic calculator project, it has been **pivoted into a chemical engineering toolkit** to:
+The calculator allows users to convert units, analyze production batches, calculate material efficiency, and estimate sustainability metrics, providing insights that are critical for process optimization, resource management, and sustainable operations.
 
-- Perform unit conversions
-- Calculate averages of experimental trials
-- Model material balances
-- Compute process yields and efficiencies
-- Simulate simple chemical process flows
-
-This toolkit demonstrates **initiative, engineering logic, and sustainability awareness**, providing a foundation for more advanced process modeling and environmental efficiency calculations.
-
----
-
-## Features
-
-1. **Unit Conversions**
-   - Nanometers ↔ Angstroms
-   - Liters ↔ Milliliters
-   - Grams ↔ Kilograms
-
-2. **Experimental Calculations**
-   - Average of multiple measurements (`average-trials`)
-
-3. **Material Balance**
-   - Compute product and waste mass given feed and loss fraction
-
-4. **Process Modeling**
-   - `run-process` combines material balance and efficiency calculations
-   - Returns product mass, waste mass, and material efficiency for a single-step process
-
+It demonstrates practical applications of industrial engineering concepts such as throughput optimization, quality control, waste reduction, and carbon footprint estimation.
 ---
 
 ## Example Usage
