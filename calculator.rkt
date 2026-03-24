@@ -1,7 +1,8 @@
 #lang racket
 (require rackunit)
 
-; Chemical Engineering Calculator
+; Green Chemical Process Modeling Toolkkit (Racket)
+; (Function Programming / Engineering Systems / Sustainability)
 ; Designed to assist teachings in programming lofic, math modeling, and engineering computation.
 ; Preforms:
 ;      - Unit Conversions
@@ -10,8 +11,12 @@
 ;      - Percent Yield Calculator
 ;      - Reaction Half-Life Caculator
 ;      - Determinant + Invertibility Checker
+;      - Material Balances
+;      - Concentrations
+;      - Yields
+;      - Simple Process Flows
 
-; Day 1: Unit Conversion Functions
+; 1: Unit Conversion Functions
 ; nm->angstrom: converts a lengthvalue in nanometeres (nm) to angstroms (A).
 ; number -> number
 ; Formula 1 nm = 10 A
@@ -42,6 +47,21 @@
 (define (mL->L mL)
   (* mL .001))
 
+; g->Kg: converts grams (g) to kilograms (Kg).
+; number -> number
+(define (g->Kg g)
+  (* g .001))
+
+(check-equal? (g->Kg 212)
+              .212)
+
+; Kg->g: converts kilograms (Kg) to grams (g).
+; number -> number
+(define (Kg->g Kg)
+  (* Kg 1000))
+
+(check-equal? (Kg->g 32)
+              32000)
 
 
 ; converts: converts a number from one unit to another.
@@ -55,6 +75,9 @@
     [(and (string=? str1 "L") (string=? str2 "mL"))          (L->mL num)]
     [(and (string=? str1 "mL") (string=? str2 "L"))          (mL->L num)]
 
+    [(and (string=? str1 "g") (string=? str2 "Kg"))           (g->Kg num)]
+    [(and (string=? str1 "Kg") (string=? str2 "g"))            (Kg->g num)]
+
     [else (error "Conversion from ~a to ~a is not defined.\n" str1 str2)]))
 
 
@@ -66,4 +89,84 @@
               .300)
 (check-within (converts .79 "L" "mL")
               790 1)
+
+(check-within (converts 12.001 "g" "Kg")
+              0.012 .01)
+(check-within (converts (* 9.109 1000) "Kg" "g")
+              9109000 .01)
+
+; round-n: function to round to n decimal places
+; num -> num
+(define (round-n x n)
+  (exact->inexact (/ (round (* x
+                               (expt 10
+                                     n)))
+                     (expt 10 n))))
+      
+;2: Batch Statistics Module
+; batch-stats: function to calculate min, max, mean, range, standard deviation, and CV to summarize data and provide quality control
+; (lst of num) -> (lst of num)
+(define (batch-stats lst)
+ (if (null? lst)
+     (error "List cannot be empty")
+     (let*((min-val
+            (apply min lst))
+           (max-val
+            (apply max lst))
+           (mean
+            (/ (apply +
+                      lst)
+               (length lst)))
+           (range
+            (- max-val min-val))
+           (stan-dev
+            (sqrt (/ (apply +
+                            (map (lambda (x)
+                                   (sqr (- x mean)))
+                                 lst))
+                     (length lst))))
+           (cv
+            (/ stan-dev mean)))
+  (list (round-n min-val 2)
+        (round-n max-val 2)
+        (round-n mean 2)
+        (round-n range 2)
+        (round-n stan-dev 2)
+        (round-n cv 5)))))
+
+(check-equal? (batch-stats (list 100 102 101 103 99))
+              '(99.0 103.0 101.0 4.0 1.41 0.014))
+
+;3: Mass Balance Module
+; output: calculate output given input and waste percentage
+; num num -> num
+(define (output in waste-percent)
+  (round-n (* in (- 1 (/ waste-percent 100))) 2))
+
+; waste: calculate waste based on input and output
+; num num -> num
+(define (waste in out)
+  (round-n (- in out) 2))
+
+; waste-percentage: calculates percent of waste given input and waste
+; num num -> num
+(define (waste-percentage in waste)
+  (round-n (* (/ waste in) 100) 1))
+
+
+(check-equal? (output 100 20)
+              80.0)
+(check-equal? (waste 610 112)
+              498.0)
+(check-equal? (waste-percentage 122 20)
+              16.4)
+
+;4: Sustainability Metrics Module
+; carbon-footprint: calculates carbon footprint given mass and emission factor
+; num num -> num
+(define (carbon-footprint mass emission-factor)
+  (round-n (* mass emission-factor) 4))
+
+(check-equal? (carbon-footprint 16 0.213)
+              3.408)
               
