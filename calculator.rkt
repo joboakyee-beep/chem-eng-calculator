@@ -169,4 +169,55 @@
 
 (check-equal? (carbon-footprint 16 0.213)
               3.408)
+
+;5: Material Balance, Percent Yield, Material Efficiency, Run Process
+; material-balance: models a simple single-step chemical process.
+; Applied conservation of mass with process losses.
+; num (0-1) -> (lst of num)
+(define (material-balance feed-mass loss-fraction)
+  (let ([waste
+           (* feed-mass loss-fraction)]
+        [product
+           (- feed-mass (* feed-mass loss-fraction))])
+         (list product waste)))
+
+(check-within (material-balance 100 0.1)
+              '(90 10) 1)
+(check-within (material-balance 50 .2)
+              '(40 10) 1)
+
+; percent-yield: calculates percent yield of a process.
+; Measures process efficiency relative to ideal output.
+; num num -> num
+(define (percent-yield actual ideal)
+  (* (/ actual ideal) 100))
+
+(check-within (percent-yield 23 86)
+              26.7 .1)
+(check-within (percent-yield 45 50)
+              90 .1)
+
+; material-efficiency: computes fraction of material converted to prodct.
+; num num -> num
+(define (material-efficiency product feed)
+  (/ product feed))
+
+(check-within (material-efficiency 90 100)
+              .9 .001)
+(check-within (material-efficiency 73 85)
+              .858 .001)
+  
+; run-process: simulates a green chemical process and returns key metrics.
+; num num -> (lst of num)
+(define (run-process feed-mass loss-fraction)
+  (let* ([results (material-balance feed-mass loss-fraction)]
+        [product (first results)]
+        [waste (second results)]
+        [efficiency (material-efficiency product feed-mass)])
+    (list product waste efficiency)))
+
+(check-within (run-process 100 0.1)
+              '(90 10 0.9) 0.1)
+(check-within (run-process 50 0.2)
+              '(40 10 0.8) 0.1)
               
