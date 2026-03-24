@@ -37,6 +37,3 @@ A **modular Racket calculator** designed for **industrial engineering and chemic
 ## Installation
 Requires [Racket](https://racket-lang.org/) to run.
 
-1. Clone the repository:
-```bash
-git clone https://github.com/joboakyee-beep/gut.git
